@@ -1,0 +1,34 @@
+@layer reset, global, components, overrides;
+
+@import url("./reset.css") layer(reset);
+
+@layer global{
+    :root{
+
+        /* -Colors- */
+        /* --darke-mode-- */
+        --dm_body_color:#252525;
+        --dm_div_color:#474747;
+        --dm_todo_bg_color:#363636;
+        --dm_notAtive_icon_color:#666666;
+        --dm_accent_color:#5D38E6;
+        --dm_accent_second_color:#8E80C2;
+        --dm_text_color:#EBEBEB;
+
+        /* --light-mode-- */
+        --lm_body_color:#EAEAEA;
+        --lm_div_color:#FAFAFA;
+        --lm_toodo_bg_color:#F1F1F1;
+        --lm_notAtive_icon_color:#666666;
+        --lm_accent_color:#E68338;
+        --lm_accent_second_color:#BB8037;
+        --lm_text_color:#EBEBEB;
+
+        
+
+        /* Font-size */
+        --header_2:2rem;
+        --header_3:1.5rem;
+        --paragraph:1rem;
+    }
+}
