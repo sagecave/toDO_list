@@ -57,6 +57,14 @@
         color: var(--dm_text_color);
         list-style-type: none;
         cursor:pointer;
+        background-color: var(--dm_accent_color);
+        border-radius: 4px;
+        line-height: 4rem;
+      }
 
+      .todo_assigment{
+       p{
+        padding: 2rem;
+       }
       }
 }
