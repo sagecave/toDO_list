@@ -18,3 +18,18 @@
     <footer></footer>
   </body>
 </html>
+
+<style>
+  body {
+    margin-top: 4rem;
+    background-color: var(--dm_body_color);
+    display: grid;
+    grid-template-columns: [full-start] 1fr [content-start]auto auto[content-end] 1fr[full-end];
+
+    & > * {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+    }
+  }
+</style>

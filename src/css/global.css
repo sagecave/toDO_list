@@ -31,4 +31,32 @@
         --header_3:1.5rem;
         --paragraph:1rem;
     }
+
+
+    @font-face {
+        font-family: gruppo;
+        src: url(../fonts/Gruppo/Gruppo-Regular.ttf);
+      }
+      @font-face {
+        font-family: teko;
+        src: url(../fonts/Teko/Teko-VariableFont_wght.ttf);
+      }
+
+      h1,h2,h3,h4,h5,h6{
+        font-family: gruppo;
+        font-size: 2rem;
+      }
+      p,button, li, input{
+        font-family: teko;
+        font-size: 1.5rem;
+      }
+
+
+      /* dette code er til todoLIst */
+      li {
+        color: var(--dm_text_color);
+        list-style-type: none;
+        cursor:pointer;
+
+      }
 }

@@ -1,67 +1,6 @@
----
 
----
-
-<div class="toDoContainer">
-  <div class="todoList">
-    <h2>ASSIGNMENT</h2>
-    <ol class="activeList"></ol>
-    <input type="text" />
-    <button class="addTaskButton">click me</button>
-  </div>
-  <div class="todoListDone">
-    <h2>ASSIGNMENT DONE</h2>
-    <ol class="doneList"></ol>
-    <button class="deleteText">Clear all</button>
-  </div>
-</div>
-<style>
-
-input{
-  background-color: var(--dm_notAtive_icon_color);
-  border: none;
-  border-radius: 4px;
-  padding: .5rem 1.5rem;
-}
-  h2, button, input{
-    color: var(--dm_text_color);
-  }
-  button{
-    background-color: var(--dm_accent_color);
-    border: none;
-    padding: .5rem 1.5rem;
-    border-radius: 4px;
-    cursor:pointer;
-
-  }
-  button:hover{
-    background-color: var(--dm_accent_second_color);
-  
-  }
-  .toDoContainer {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-
-  }
-
-  .todoList,
-  .todoListDone {
-    background-color: var(--dm_todo_bg_color);
-    padding: 2rem;
-    border-radius: 4px;
-    min-height: 30rem;
-    li:hover{
-     
-      text-decoration: line-through;
-    }
-  }
-  h2,
-
-</style>
 <script>
-  window.addEventListener("load", (event) => {
+window.addEventListener("load", (event) => {
   console.log("page is fully loaded");
   if (todoStorage === null) {
     listValues = [];
