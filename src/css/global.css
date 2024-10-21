@@ -43,13 +43,18 @@
       }
 
       h1,h2,h3,h4,h5,h6{
-        font-family: gruppo;
-        font-size: 2rem;
-      }
-      p,button, li, input{
         font-family: teko;
-        font-size: 1.5rem;
+        font-size: 1.7rem;
+        letter-spacing: .08rem;
+        
       }
+      p,button, li, input,.checkbox{
+        font-family: gruppo;
+        font-size: 1.2rem;
+       
+      }
+
+
 
 
       /* dette code er til todoLIst */
@@ -58,13 +63,75 @@
         list-style-type: none;
         cursor:pointer;
         background-color: var(--dm_accent_color);
-        border-radius: 4px;
-        line-height: 4rem;
+        border-radius: 8px;
+        min-height: 3rem;
+        max-width: 24rem;
+        text-wrap:wrap;
+        align-content: center;
+
+        border: solid 20px var(--dm_accent_color);
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+       
+      }
+     
+
+      .checkbox{
+        position: relative;
+        
+        display: flex;
+         max-width: 14rem;
+        cursor: pointer;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      .checkbox input{
+        position: absolute;
+        height: 0;
+        width: 0;
+        cursor: pointer;
+      }
+      .check{
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        border: 2px solid var(--dm_text_color);
+        border-radius: 3px;
+        left: 17rem;
+
+        transition: 2 ease-in-out;
       }
 
-      .todo_assigment{
-       p{
-        padding: 2rem;
-       }
+      .checkbox:hover input ~ .check{
+        border-color:var(--dm_accent_second_color);
+        
       }
+
+      .checkbox input:checked ~ .check::after{
+        background-color: var(--dm_text_color);
+        border-color: var(--dm_text_color);
+        
+      }
+
+      .check::after{
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border: solid var(--dm_accent_color);
+        border-width: 3px 3px 3px 3px;
+        border-radius: 1px;
+        background-color: var(--dm_accent_color);
+        left: 2.5px;
+        top: 2.5px;
+
+      }
+   
+      
+      
+      
 }

@@ -5,11 +5,11 @@
 <div class="toDoContainer">
   <div class="todoList">
     <h2>ASSIGNMENT</h2>
+
     <div class="activeListContainer">
-    <ol class="activeList"></ol>
-  </div>
-    <input  type="text" />
-  
+      <ol class="activeList"></ol>
+    </div>
+    <input type="text" />
   </div>
   <div class="todoListDone">
     <h2>ASSIGNMENT DONE</h2>
@@ -22,57 +22,57 @@
   </div>
 </div>
 <style>
-ol{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap:0.3rem
-}
-.activeListContainer{    
-  width: 100%;
-  max-height: 24rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: justify;
-}
-.doneListContainer{    
-  width: 100%;
-  max-height: 24rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: justify;
-  margin: 1rem;
-}
+  ol {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .activeListContainer {
+    width: 100%;
+    max-height: 24rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+  }
+  .doneListContainer {
+    width: 100%;
+    max-height: 24rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+  }
+  h2 {
+    margin-bottom: 0.2rem;
+  }
 
-input{
-  background-color: var(--dm_notAtive_icon_color);
-  border: none;
-  border-radius: 4px;
-  padding: .5rem 1.5rem;
-  width: 100%;
-  margin-top: 0.3rem;
-}
-  h2, button, input{
+  input {
+    background-color: var(--dm_notAtive_icon_color);
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+  h2,
+  button,
+  input {
     color: var(--dm_text_color);
   }
-  .buttomContainer{
+  .buttomContainer {
     display: flex;
     justify-content: end;
-
   }
-  button{
-
+  button {
     background-color: var(--dm_accent_color);
     border: none;
-    padding: .5rem 1.5rem;
-    border-radius: 4px;
-    cursor:pointer;
-   
-
+    padding: 0.2rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 1rem;
   }
-  button:hover{
+  button:hover {
     background-color: var(--dm_accent_second_color);
-  
   }
   .toDoContainer {
     display: flex;
@@ -83,109 +83,106 @@ input{
     padding: 1.5rem;
     border-radius: 8px;
   }
-.doneListContainer{
-  min-height: 20rem;
-}
+  .doneListContainer {
+    min-height: 30rem;
+  }
   .todoList,
   .todoListDone {
     background-color: var(--dm_todo_bg_color);
-    padding: 2rem;
-    border-radius: 4px;
-    min-height: 20rem;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    min-height: 30rem;
     min-width: 25rem;
-    li:hover{
-     
+    li:hover {
       text-decoration: line-through;
     }
   }
-  h2,
-
 </style>
 <script>
   window.addEventListener("load", (event) => {
-  console.log("page is fully loaded");
-  if (todoStorage === null) {
-    listValues = [];
-  } else {
-    listValues = JSON.parse(todoStorage);
-  }
-  if (assigmentDoneStorage === null) {
-    listDone = [];
-  } else {
-    listDone = JSON.parse(assigmentDoneStorage);
-  }
-  listGenerator();
-  listGeneratorDone();
-});
-
-let listValues = [];
-let listDone = [];
-const todoStorage = localStorage.getItem("todoStorage");
-const assigmentDoneStorage = localStorage.getItem("assigmentDoneStorage");
-const inputButton = document.querySelector(".addTaskButton");
-const deleteTextButton = document.querySelector(".deleteText");
-const listDoneContainer = document.querySelector(".doneList");
-const inputOfValues = document.querySelector("input");
-
-inputOfValues.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    inputVal();
-  }
-});
-
-function inputVal() {
-  let inputText = inputOfValues.value;
-  listValues.push(inputText);
-  console.log(listValues);
-  updateStrage();
-  listGenerator();
-}
-
-deleteTextButton.addEventListener("click", () => {
-  listDone.splice(0);
-  updateStrage();
-  listGeneratorDone();
-});
-
-function listGenerator() {
-  const listContainer = document.querySelector(".activeList");
-  listContainer.innerHTML = ``;
-  listValues.forEach((assigment, id) => {
-    listContainer.innerHTML += `<li class="todo_assigment" data-id="${id}"> ${assigment} </li>`;
+    console.log("page is fully loaded");
+    if (todoStorage === null) {
+      listValues = [];
+    } else {
+      listValues = JSON.parse(todoStorage);
+    }
+    if (assigmentDoneStorage === null) {
+      listDone = [];
+    } else {
+      listDone = JSON.parse(assigmentDoneStorage);
+    }
+    listGenerator();
+    listGeneratorDone();
   });
 
-  document.querySelectorAll(".todo_assigment").forEach((each, id) => {
-    each.addEventListener("click", removeAssigment);
+  let listValues = [];
+  let listDone = [];
+  const todoStorage = localStorage.getItem("todoStorage");
+  const assigmentDoneStorage = localStorage.getItem("assigmentDoneStorage");
+  const inputButton = document.querySelector(".addTaskButton");
+  const deleteTextButton = document.querySelector(".deleteText");
+  const checking = document.querySelector(".checkInput");
+  const listDoneContainer = document.querySelector(".doneList");
+  const inputOfValues = document.querySelector("input");
+
+  inputOfValues.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      inputVal();
+    }
   });
-}
 
-function listGeneratorDone() {
-  listDoneContainer.innerHTML = ``;
-  listDone.forEach((assigment, id) => {
-    listDoneContainer.innerHTML += `<li class="todo_assigment" data-id="${id}"> ${assigment} </li>`;
+  function inputVal() {
+    let inputText = inputOfValues.value;
+    listValues.push(inputText);
+    console.log(listValues);
+    updateStrage();
+    listGenerator();
+  }
+
+  deleteTextButton.addEventListener("click", () => {
+    listDone.splice(0);
+    updateStrage();
+    listGeneratorDone();
   });
 
-  //   document.querySelectorAll(".todo_assigment").forEach((each, id) => {
-  //     each.addEventListener("click", removeAssigment);
-  //   });
-}
+  function listGenerator() {
+    const listContainer = document.querySelector(".activeList");
+    listContainer.innerHTML = ``;
+    listValues.forEach((assigment, id) => {
+      listContainer.innerHTML += `<li class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input class="checkInput" type="checkbox" /> <span class="check"></span> </label> </li>`;
+    });
 
-function updateStrage() {
-  localStorage.setItem("todoStorage", JSON.stringify(listValues));
-  localStorage.setItem("assigmentDoneStorage", JSON.stringify(listDone));
-}
+    document.querySelectorAll(".todo_assigment").forEach((each, id) => {
+      each.addEventListener("dblclick", removeAssigment);
+    });
+  }
 
-function removeAssigment(event) {
-  let listItemNumbers = event.target.dataset.id;
-  let listItemValue = event.target.textContent;
-  listDone.push(listItemValue);
-  listValues.splice(listItemNumbers, 1);
-  console.log("list Done", listDone);
+  function listGeneratorDone() {
+    listDoneContainer.innerHTML = ``;
+    listDone.forEach((assigment, id) => {
+      listDoneContainer.innerHTML += `<li class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input class="checkInput" type="checkbox" /> <span class="check"></span> </label> </li>`;
+    });
 
-  listGenerator();
-  listGeneratorDone();
-  updateStrage();
-}
+    //   document.querySelectorAll(".todo_assigment").forEach((each, id) => {
+    //     each.addEventListener("click", removeAssigment);
+    //   });
+  }
 
+  function updateStrage() {
+    localStorage.setItem("todoStorage", JSON.stringify(listValues));
+    localStorage.setItem("assigmentDoneStorage", JSON.stringify(listDone));
+  }
+
+  function removeAssigment(event) {
+    let listItemNumbers = event.target.dataset.id;
+    let listItemValue = event.target.textContent;
+    listDone.push(listItemValue);
+    listValues.splice(listItemNumbers, 1);
+    console.log("list Done", listDone);
+
+    listGenerator();
+    listGeneratorDone();
+    updateStrage();
+  }
 </script>
