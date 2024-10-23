@@ -77,6 +77,11 @@
         
        
       }
+      /* li:hover{
+        background-color: var(--dm_accent_second_color);
+        border-color:var(--dm_accent_second_color) ;
+      } */
+      
      
 
       .checkbox{
@@ -131,7 +136,12 @@
 
       }
    
-      
-      
+      svg path {
+        stroke: var(--dm_accent_second_color);
+      }
+      svg:hover path{
+        stroke: var(--dm_text_color);
+      }
+     
       
 }

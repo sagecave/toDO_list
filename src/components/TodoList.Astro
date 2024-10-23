@@ -4,15 +4,16 @@
 
 <div class="toDoContainer">
   <div class="todoList">
-    <h2>ASSIGNMENT</h2>
+    <h2>TO-DO</h2>
 
     <div class="activeListContainer">
       <ol class="activeList"></ol>
     </div>
-    <input type="text" />
+    <input type="text" placeholder="Put task here" />
+    <div class="trashTodo" id="div1"></div>
   </div>
   <div class="todoListDone">
-    <h2>ASSIGNMENT DONE</h2>
+    <h2>DONE</h2>
     <div class="doneListContainer">
       <ol class="doneList"></ol>
     </div>
@@ -22,6 +23,12 @@
   </div>
 </div>
 <style>
+  .trashTodo {
+    width: 2.5rem;
+    height: 3rem;
+
+    background-image: url("../src/assets/icons/trash.svg");
+  }
   ol {
     display: flex;
     justify-content: space-between;
@@ -93,8 +100,19 @@
     border-radius: 8px;
     min-height: 30rem;
     min-width: 25rem;
+  }
+
+  .todoList {
     li:hover {
       text-decoration: line-through;
+    }
+  }
+  .todoListDone {
+    li {
+      text-decoration: line-through;
+    }
+    li:hover {
+      text-decoration: none;
     }
   }
 </style>
@@ -105,6 +123,7 @@
       listValues = [];
     } else {
       listValues = JSON.parse(todoStorage);
+      console.log("list", listValues);
     }
     if (assigmentDoneStorage === null) {
       listDone = [];
@@ -124,6 +143,12 @@
   const checking = document.querySelector(".checkInput");
   const listDoneContainer = document.querySelector(".doneList");
   const inputOfValues = document.querySelector("input");
+
+  document.getElementById("div1").addEventListener("dragover", allowDrop);
+
+  document.getElementById("div1").addEventListener("drop", drop);
+
+  let checkDone = "";
 
   inputOfValues.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -150,23 +175,48 @@
     const listContainer = document.querySelector(".activeList");
     listContainer.innerHTML = ``;
     listValues.forEach((assigment, id) => {
-      listContainer.innerHTML += `<li class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input class="checkInput" type="checkbox" /> <span class="check"></span> </label> </li>`;
+      listContainer.innerHTML += `<li id="item${id}" draggable="true" ondragstart="drag(event)" class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input data-id="${id}" data-textContent="${assigment}" class="checkInput" type="checkbox" ${checkDone} /> <span class="check"></span> </label> </li>`;
     });
 
     document.querySelectorAll(".todo_assigment").forEach((each, id) => {
       each.addEventListener("dblclick", removeAssigment);
     });
+
+    document.querySelectorAll(".checkInput").forEach((each, id) => {
+      each.addEventListener("click", checkingTrue);
+    });
+  }
+  function checkingTrue(event) {
+    console.log("virker det?", event.target.dataset);
+
+    let listItemNumbers = event.target.dataset.id;
+    let listItemValue = event.target.dataset.textcontent;
+
+    listDone.push(listItemValue);
+    listValues.splice(listItemNumbers, 1);
+    console.log("list Done", listDone);
+    console.log("list Item Number", listItemNumbers);
+    console.log("list item value", listItemValue);
+    listGenerator();
+    listGeneratorDone();
+    updateStrage();
   }
 
   function listGeneratorDone() {
     listDoneContainer.innerHTML = ``;
     listDone.forEach((assigment, id) => {
-      listDoneContainer.innerHTML += `<li class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input class="checkInput" type="checkbox" /> <span class="check"></span> </label> </li>`;
+      listDoneContainer.innerHTML += `<li class="todo_assigmentDone" data-id="${id}">  <label class="checkbox">${assigment}  <input data-id="${id} data-textContent="${assigment}" class="checkInput" type="checkbox" checked ${checkDone} /> <span class="check"></span> </label> </li>`;
     });
 
-    //   document.querySelectorAll(".todo_assigment").forEach((each, id) => {
-    //     each.addEventListener("click", removeAssigment);
-    //   });
+    document.querySelectorAll(".todo_assigmentDone").forEach((each, id) => {
+      each.addEventListener("dblclick", addAssigmentDone);
+    });
+
+    // const returnButton = document.querySelector(".returnBut");
+    // returnButton.addEventListener("click", (event) => {
+    //   addAssigmentDone(event);
+    //   console.log("return that thing", event);
+    // });
   }
 
   function updateStrage() {
@@ -175,9 +225,56 @@
   }
 
   function removeAssigment(event) {
+    console.log("event check", event);
     let listItemNumbers = event.target.dataset.id;
     let listItemValue = event.target.textContent;
+
     listDone.push(listItemValue);
+    listValues.splice(listItemNumbers, 1);
+    console.log("list Done", listDone);
+    console.log("list Item Number", listItemNumbers);
+    console.log("list item value", listItemValue);
+    listGenerator();
+    listGeneratorDone();
+    updateStrage();
+  }
+  function addAssigmentDone(event) {
+    console.log("event check done", event);
+    let listItemNumbers = event.target.dataset.id;
+    let listItemValue = event.target.textContent;
+    listValues.push(listItemValue);
+    listDone.splice(listItemNumbers, 1);
+    console.log("list Done", listDone);
+
+    listGenerator();
+    listGeneratorDone();
+    updateStrage();
+  }
+
+  // test
+  // Drag & Drop Functions
+  function allowDrop(event) {
+    event.preventDefault(); // Allows dropping
+    console.log("allowDrop event:", event);
+  }
+
+  function drag(event) {
+    event.dataTransfer.setData("text", event.target.id); // Set the id of the element being dragged
+    console.log("drag event:", event);
+  }
+
+  function drop(event) {
+    event.preventDefault();
+    let workPls = document.querySelector("li");
+    console.log("Its alive", workPls);
+    trash(event);
+
+    console.log("virk nu", event);
+  }
+
+  function trash(event) {
+    console.log("event check", event);
+    let listItemNumbers = event.target.dataset.id;
     listValues.splice(listItemNumbers, 1);
     console.log("list Done", listDone);
 
