@@ -183,10 +183,8 @@
     });
 
     document.querySelectorAll(".checkInput").forEach((each, id) => {
-      each.querySelectorAll("ondragstart", drag);
+      each.addEventListener("click", checkingTrue);
     });
-
-    document.getElementById("div1").addEventListener("drop", drop);
   }
   function checkingTrue(event) {
     console.log("virker det?", event.target.dataset);
