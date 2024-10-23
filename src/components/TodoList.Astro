@@ -183,8 +183,10 @@
     });
 
     document.querySelectorAll(".checkInput").forEach((each, id) => {
-      each.addEventListener("click", checkingTrue);
+      each.querySelectorAll("ondragstart", drag);
     });
+
+    document.getElementById("div1").addEventListener("drop", drop);
   }
   function checkingTrue(event) {
     console.log("virker det?", event.target.dataset);
@@ -264,6 +266,7 @@
   }
 
   function drop(event) {
+    console.log("drop", event);
     event.preventDefault();
     let workPls = document.querySelector("li");
     console.log("Its alive", workPls);
