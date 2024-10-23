@@ -175,7 +175,7 @@
     const listContainer = document.querySelector(".activeList");
     listContainer.innerHTML = ``;
     listValues.forEach((assigment, id) => {
-      listContainer.innerHTML += `<li id="item${id}" draggable="true" ondragstart="drag(event)" class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input data-id="${id}" data-textContent="${assigment}" class="checkInput" type="checkbox" ${checkDone} /> <span class="check"></span> </label> </li>`;
+      listContainer.innerHTML += `<li id="item${id}" draggable="true"  class="todo_assigment" data-id="${id}">  <label class="checkbox">${assigment} <input data-id="${id}" data-textContent="${assigment}" class="checkInput" type="checkbox" ${checkDone} /> <span class="check"></span> </label> </li>`;
     });
 
     document.querySelectorAll(".todo_assigment").forEach((each, id) => {
@@ -184,6 +184,9 @@
 
     document.querySelectorAll(".checkInput").forEach((each, id) => {
       each.addEventListener("click", checkingTrue);
+    });
+    document.querySelectorAll("li").forEach((each, id) => {
+      each.addEventListener("dragstart", drag);
     });
   }
   function checkingTrue(event) {
@@ -258,9 +261,11 @@
     console.log("allowDrop event:", event);
   }
 
+  let dragNumber;
   function drag(event) {
-    event.dataTransfer.setData("text", event.target.id); // Set the id of the element being dragged
-    console.log("drag event:", event);
+    event.dataTransfer.setData("text", event.target.dataset.id);
+    dragNumber = event.target.dataset.id;
+    console.log("drag event:", dragNumber);
   }
 
   function drop(event) {
@@ -268,14 +273,14 @@
     event.preventDefault();
     let workPls = document.querySelector("li");
     console.log("Its alive", workPls);
-    trash(event);
+    trash(dragNumber);
 
     console.log("virk nu", event);
   }
 
   function trash(event) {
     console.log("event check", event);
-    let listItemNumbers = event.target.dataset.id;
+    let listItemNumbers = event;
     listValues.splice(listItemNumbers, 1);
     console.log("list Done", listDone);
 
