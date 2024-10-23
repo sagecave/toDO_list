@@ -9,8 +9,23 @@
     <div class="activeListContainer">
       <ol class="activeList"></ol>
     </div>
-    <input type="text" placeholder="Put task here" />
-    <div class="trashTodo" id="div1"></div>
+    <div class="trashContainer">
+      <input type="text" placeholder="Put task here" />
+
+      <div class="trashTodo" id="div1">
+        <svg width="39" height="48" viewBox="0 0 39 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.7287 10.802H5.61759H36.7287" stroke="#666666" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path
+            d="M32.8397 10.8019V41.2268C32.8397 42.3795 32.43 43.485 31.7007 44.3002C30.9714 45.1153 29.9822 45.5732 28.9508 45.5732H9.5064C8.475 45.5732 7.48585 45.1153 6.75654 44.3002C6.02723 43.485 5.61751 42.3795 5.61751 41.2268V10.8019M11.4508 10.8019V6.45554C11.4508 5.3028 11.8606 4.19727 12.5899 3.38216C13.3192 2.56705 14.3083 2.10913 15.3397 2.10913H23.1175C24.1489 2.10913 25.1381 2.56705 25.8674 3.38216C26.5967 4.19727 27.0064 5.3028 27.0064 6.45554V10.8019"
+            stroke="#666666"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path d="M15.34 21.668V34.7072" stroke="#666666" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M23.1178 21.668V34.7072" stroke="#666666" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </div>
   </div>
   <div class="todoListDone">
     <h2>DONE</h2>
@@ -23,11 +38,24 @@
   </div>
 </div>
 <style>
-  .trashTodo {
-    width: 2.5rem;
-    height: 3rem;
+  input::placeholder {
+    color: var(--dm_todo_bg_color);
+  }
+  .trashContainer {
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    position: relative;
 
-    background-image: url("../src/assets/icons/trash.svg");
+    gap: 1rem;
+    align-items: end;
+  }
+  .trashTodo {
+    width: 1rem;
+    height: 3rem;
+    & svg {
+      width: 1rem;
+    }
   }
   ol {
     display: flex;
@@ -154,15 +182,18 @@
     if (event.key === "Enter") {
       event.preventDefault();
       inputVal();
+      inputOfValues.value = "";
     }
   });
 
   function inputVal() {
     let inputText = inputOfValues.value;
-    listValues.push(inputText);
-    console.log(listValues);
-    updateStrage();
-    listGenerator();
+    if (inputText !== "") {
+      listValues.push(inputText);
+      console.log(listValues);
+      updateStrage();
+      listGenerator();
+    }
   }
 
   deleteTextButton.addEventListener("click", () => {
@@ -208,11 +239,14 @@
   function listGeneratorDone() {
     listDoneContainer.innerHTML = ``;
     listDone.forEach((assigment, id) => {
-      listDoneContainer.innerHTML += `<li class="todo_assigmentDone" data-id="${id}">  <label class="checkbox">${assigment}  <input data-id="${id} data-textContent="${assigment}" class="checkInput" type="checkbox" checked ${checkDone} /> <span class="check"></span> </label> </li>`;
+      listDoneContainer.innerHTML += `<li class="todo_assigmentDone" data-id="${id}">  <label class="checkbox">${assigment}  <input data-id="${id}" data-textContent="${assigment}" class="checkInputDone" type="checkbox" checked ${checkDone} /> <span class="check"></span> </label> </li>`;
     });
 
     document.querySelectorAll(".todo_assigmentDone").forEach((each, id) => {
       each.addEventListener("dblclick", addAssigmentDone);
+    });
+    document.querySelectorAll(".checkInputDone").forEach((each, id) => {
+      each.addEventListener("click", checkingFalse);
     });
 
     // const returnButton = document.querySelector(".returnBut");
@@ -220,6 +254,18 @@
     //   addAssigmentDone(event);
     //   console.log("return that thing", event);
     // });
+  }
+  function checkingFalse(event) {
+    console.log("1 gang");
+    let listItemNumbers = event.target.dataset.id;
+    let listItemValue = event.target.dataset.textcontent;
+
+    listValues.push(listItemValue);
+    listDone.splice(listItemNumbers, 1);
+
+    listGenerator();
+    listGeneratorDone();
+    updateStrage();
   }
 
   function updateStrage() {
