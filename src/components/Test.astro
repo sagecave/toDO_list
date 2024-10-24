@@ -40,6 +40,17 @@
   </div>
 </div>
 <style>
+  @media screen and (width > 750px) {
+    .toDoContainer {
+      background-color: var(--dm_div_color);
+    }
+  }
+  @media screen and (width < 750px) {
+    .toDoContainer {
+      background-color: transparent;
+    }
+  }
+
   .containerFarme {
     display: grid;
     grid-column: content;
@@ -120,7 +131,7 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
-    background-color: var(--dm_div_color);
+
     padding: 1.5rem;
     border-radius: 8px;
   }

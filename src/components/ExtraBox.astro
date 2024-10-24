@@ -1,0 +1,63 @@
+---
+
+---
+
+<div class="motivationContainer">
+  <div class="motivationContent">
+    <h1>Motivation for the day</h1>
+    <p>do better than yesterday</p>
+  </div>
+</div>
+
+<style>
+  @media screen and (width > 750px) {
+    .motivationContainer {
+      grid-column: 3;
+      margin-bottom: 0.5rem;
+    }
+    .motivationContent {
+      width: 28rem;
+      height: 7rem;
+      background-color: var(--dm_todo_bg_color);
+      color: var(--dm_text_color);
+      border-radius: 6px;
+      padding: 1rem 2rem;
+      display: flex;
+
+      flex-direction: column;
+
+      p,
+      h1 {
+        color: var(--dm_text_color);
+      }
+    }
+  }
+  @media screen and (width < 750px) {
+    .motivationContainer {
+      grid-column: content;
+      grid-row: 2;
+      margin-bottom: 0.5rem;
+    }
+    .motivationContent {
+      width: 100%;
+      height: 7rem;
+
+      background-color: var(--dm_todo_bg_color);
+      color: var(--dm_text_color);
+      border-radius: 6px;
+      padding: 1rem 2rem;
+      display: flex;
+      flex-direction: column;
+      p,
+      h1 {
+        color: var(--dm_text_color);
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+</style>
