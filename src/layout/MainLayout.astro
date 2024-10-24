@@ -10,8 +10,13 @@
     <meta name="generator" content={Astro.generator} />
     <title>Todolist</title>
   </head>
-  <body>
-    <header></header>
+  <body data-theme="dark">
+    <header>
+      <select name="" id="">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </header>
     <main>
       <slot />
     </main>
@@ -32,4 +37,27 @@
       grid-template-columns: subgrid;
     }
   }
+  select {
+    width: 5rem;
+    height: 2.5rem;
+    border-color: var(--dm_accent_second_color);
+    border-radius: 8px;
+    color: var(--dm_change_color);
+    background-color: var(--dm_body_color);
+    text-align: center;
+    grid-column: 3;
+    margin-bottom: 1rem;
+    border-width: 0.15rem;
+  }
 </style>
+<script>
+  document.querySelector("select").addEventListener("change", colorTheme);
+
+  const bodyc = document.querySelector("body");
+
+  function colorTheme(evt) {
+    let colName = evt.target.value;
+
+    bodyc.setAttribute("data-theme", colName);
+  }
+</script>
